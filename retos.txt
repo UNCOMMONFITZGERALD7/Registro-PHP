@@ -1,0 +1,36 @@
+Conexion PostgreSQL a traves de PDO con PHP:
+
+a tener en cuenta:
+
+la estructora para la conexion de php a postgres e sla siguiente:
+
+pgsql es el driver que le dice a PDO para cargar
+
+pgsql:host=HOST;port=PUERTO;dbname=NOMBRE_BD;
+
+try {
+    $pdo = new PDO($dsn, $user, $password); -- para importar try
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); -- para setear formato de errores
+    echo 'Conexion exitosa'; -- flag
+
+} catch (PDOException $e) { -- catch para error
+    echo 'No se entabló la conextión: ' . $e->getMessage(); -- formato de error
+}
+
+& "C:\xampp\php\php.exe" conexion.php para activar y verificar si la coneccion existe desde PS
+
+
+<ul class="lista-estudiantes">
+            <?php if (!empty($estudiantes)): ?>
+                <h3>Estudiantes cursados</h3>
+                <?php foreach($estudiantes as $estudiante): ?>
+                    <li class="l-item-estudiante">
+                        <strong>Nombre: <?php echo htmlspecialchars($estudiante['nombre_est']) ?></strong>
+                        <strong>Año: <?php echo htmlspecialchars($estudiante['anio']) ?></strong>
+                        <strong>Curso: <?php echo htmlspecialchars($estudiante['curso']) ?></strong>
+                    </li>
+                <?php endforeach ?>
+            <?php else: ?>
+                <p class="l-informacion-estudiante"><em>No hay estudiantes registrados.</em></p>
+            <?php endif ?>
+        </ul>

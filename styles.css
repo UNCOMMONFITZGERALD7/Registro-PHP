@@ -136,7 +136,7 @@ input {
 }
 
 .alerta-error {
-    background-color: rgb(155, 43, 43);
+    background-color: rgb(255, 43, 43);
     border: 2px solid rgb(253, 46, 0);
     color: var(--text-titulos);
 }

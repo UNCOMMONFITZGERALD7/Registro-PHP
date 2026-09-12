@@ -121,6 +121,8 @@ input {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: fit-content;
+    height: fit-content;
 }
 
 .alerta {
@@ -462,15 +464,15 @@ footer {
     box-shadow: 0 0 10px #0005;
     min-width: 30em;
     max-width: 50em;
-    min-height: 20em;
+    min-height: 15em;
     max-height: fit-content;
     border-radius: 15px;
     padding: 1em;
-    gap: 1em;
+    gap: 0.5em;
     font-weight: 500;
 
     label {
-        font-size: 1.5em;
+        font-size: 1.3em;
     }
 
     input {
@@ -479,8 +481,8 @@ footer {
         color: var(--text-color-inputs);
         font-family: inherit;
         font-weight: 400;
-        font-size: 1.4em;
-        padding: 0.4em 0.8em;
+        font-size: 1.2em;
+        padding: 0.2em 0.6em;
     }
     
     ul {
@@ -493,7 +495,7 @@ footer {
     display: flex;
     width: 100%;
     justify-content: end;
-    height: 2em;
+    height: 3em;
 }
 
 .modal-content .cerrar-modal {
@@ -523,6 +525,10 @@ footer {
     justify-content: center;
     align-items: center;
     gap: 1em;
+}
+
+#modal-body {
+    width: 100%;
 }
 
 .tabla-scroll {

@@ -5,8 +5,11 @@ $stmt = $pdo->prepare("SELECT * FROM estudiante_notas ORDER BY id DESC");
 $stmt->execute();
 $estudiantes = $stmt->fetchAll();
 
+$estadoalerta = $_GET['estado'] ?? null;
+$mensajealerta = $_GET['mensaje'] ?? null;
 
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -24,11 +27,24 @@ $estudiantes = $stmt->fetchAll();
 </head>
 
 <body>
-    <?php include './plantillas/header.php'?>
+    <?php include './plantillas/header.php' ?>
     <section>
         <div class="informacion informacion-lista">
             <h2>ESTUDIANTES <span>MATRICULADOS</span></h2>
-            <h3><?php echo $infoconn ?></h3>
+            <div class="contenedor-alerta">
+                <h3><?php if ($estadoalerta === 'creado'): ?>
+                        <div class="alerta">Estudiante registrado correctamente.</div>
+                    <?php elseif ($estadoalerta === 'error'): ?>
+                        <div class="alerta alerta-error">
+                            <?php echo htmlspecialchars($mensajealerta ?? 'Ocurrió un error inesperado.'); ?>
+                        </div>
+                    <?php else: ?>
+                        <div class="alerta">
+                            <?= $infoconn ?>
+                        </div>
+                    <?php endif; ?>
+                </h3>
+            </div>
             <div class="card-info card-info-estudiantes">
                 <div class="tabla-scroll">
                     <?php include './plantillas/tablalistaest.php' ?>

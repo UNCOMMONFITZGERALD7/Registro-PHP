@@ -1,29 +1,39 @@
 <?php
+require_once(dirname(__FILE__) . "/GLOBALS.php");
 require_once(dirname(__FILE__) . "/conexion.php");
 
 
+
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $stmt = $pdo->prepare(
-        "UPDATE estudiante_notas SET
+    try {
+        $stmt = $pdo->prepare(
+            "UPDATE estudiante_notas SET
             nombre_est = :nombre_est,
             profesor_est = :profesor_est,
             curso = :curso,
             anio = :anio,
             identificacion = :identificacion
-         WHERE id = :id"
-    );
+            WHERE id = :id"
+        );
+        $stmt->execute([
+            'nombre_est'     => $_POST['nombre-estudiante'],
+            'profesor_est'   => $_POST['profesor-estudiante'],
+            'curso'          => $_POST['curso-estudiante'],
+            'anio'           => $_POST['ano-estudiante'],
+            'identificacion' => $_POST['identificacion-estudiante'],
+            'id'             => $_POST['id'],
+        ]);
 
-    $stmt->execute([
-        'nombre_est'     => $_POST['nombre-estudiante'],
-        'profesor_est'   => $_POST['profesor-estudiante'],
-        'curso'          => $_POST['curso-estudiante'],
-        'anio'           => $_POST['ano-estudiante'],
-        'identificacion' => $_POST['identificacion-estudiante'],
-        'id'             => $_POST['id'],
-    ]);
+        header('Location: listaestudiantes.php?estado=creado');
+        exit();
 
-    header('Location: listaestudiantes.php');
-    exit();
+    } catch (PDOException $e) {
+        error_log('Error al editar estudiante: ' . $e->getMessage());
+
+        $alertaMensaje = interpretarError($e);
+        header('Location: listaestudiantes.php?estado=error&mensaje=' . urldecode($alertaMensaje));
+        exit;
+    }
 }
 
 if (!isset($_GET['id'])) {
@@ -45,23 +55,23 @@ if (!$estudiante) {
 
     <label for="nombre">Nombre</label>
     <input type="text" name="nombre-estudiante" id="nombre"
-           value="<?php echo htmlspecialchars($estudiante['nombre_est']); ?>" required>
+        value="<?php echo htmlspecialchars($estudiante['nombre_est']); ?>" required>
 
     <label for="profesor">Profesor/a</label>
     <input type="text" name="profesor-estudiante" id="profesor"
-           value="<?php echo htmlspecialchars($estudiante['profesor_est']); ?>" required>
+        value="<?php echo htmlspecialchars($estudiante['profesor_est']); ?>" required>
 
     <label for="curso">Curso</label>
     <input type="text" name="curso-estudiante" id="curso"
-           value="<?php echo htmlspecialchars($estudiante['curso']); ?>" required>
+        value="<?php echo htmlspecialchars($estudiante['curso']); ?>" required>
 
     <label for="ano">Año</label>
     <input type="number" name="ano-estudiante" id="ano"
-           value="<?php echo htmlspecialchars($estudiante['anio']); ?>" required>
+        value="<?php echo htmlspecialchars($estudiante['anio']); ?>" required>
 
     <label for="identificacion">Identificación</label>
     <input type="number" name="identificacion-estudiante" id="identificacion"
-           value="<?php echo htmlspecialchars($estudiante['identificacion']); ?>" required>
+        value="<?php echo htmlspecialchars($estudiante['identificacion']); ?>" required>
 
     <button class="cerrar-modal guardar-cambios" type="submit">Guardar cambios</button>
 </form>

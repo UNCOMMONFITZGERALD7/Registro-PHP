@@ -63,11 +63,6 @@ function interpretarError(PDOException $e): string
 $estado = $_GET['estado'] ?? null;
 $mensaje = $_GET['mensaje'] ?? null;
 
-
-$stmt = $pdo->prepare("SELECT * FROM estudiante_notas ORDER BY id DESC");
-$stmt->execute();
-$estudiantes = $stmt->fetchAll();
-
 ?>
 
 <!DOCTYPE html>

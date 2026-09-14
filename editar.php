@@ -1,8 +1,6 @@
 <?php
-require_once(dirname(__FILE__) . "/GLOBALS.php");
+
 require_once(dirname(__FILE__) . "/conexion.php");
-
-
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     try {

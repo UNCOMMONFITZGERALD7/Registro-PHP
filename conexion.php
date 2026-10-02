@@ -4,7 +4,7 @@ $host = '127.0.0.1';
 $port = '5432';
 $dbname = 'borcelle_notas';
 $user = 'postgres';
-$password = 'hola2121';
+$password = '*******'; // Coloca tu contraseña
 $dsn = "pgsql:host=$host;port=$port;dbname=$dbname;";
 
 try {
